@@ -4,9 +4,19 @@ var bodyParser = require('body-parser');
 
 var http = require('http');
 var server = http.createServer(app);
-var io = require('socket.io')(server, { origins: ['eeconf.local', 'localhost:4200'] });
+var io = require('socket.io')(server, { origins: ['eeconf.local:*', 'localhost:4200'] });
 
 app.use(bodyParser.json()); // gets body of HTTP request, attaches to req.body
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "eeconf.local");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
+app.get('/', function(req, res) {
+	res.sendStatus(200);
+});
 
 // Respond to POST requests with url of /comment/<commentId>
 app.post('/comment/:commentId', function(req, res) {
@@ -30,4 +40,4 @@ app.post('/comment/:commentId', function(req, res) {
 	res.sendStatus(200);
 });
 
-server.listen(8186);
+server.listen(process.env.PORT || 8186);
