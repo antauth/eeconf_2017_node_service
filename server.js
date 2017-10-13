@@ -9,7 +9,7 @@ var io = require('socket.io')(server, { origins: ['eeconf.local:*', 'localhost:4
 app.use(bodyParser.json()); // gets body of HTTP request, attaches to req.body
 
 app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "eeconf.local");
+  res.header("Access-Control-Allow-Origin", "eeconf.local, conf-of-the-wild.herokuapp.com:443");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
