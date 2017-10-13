@@ -4,7 +4,7 @@ var bodyParser = require('body-parser');
 
 var http = require('http');
 var server = http.createServer(app);
-var io = require('socket.io')(server, { origins: ['eeconf.local:*', 'localhost:4200'] });
+var io = require('socket.io')(server, { origins: ['eeconf.local:*', 'localhost:4200', 'conf-of-the-wild.herokuapp.com:443'] });
 
 app.use(bodyParser.json()); // gets body of HTTP request, attaches to req.body
 
