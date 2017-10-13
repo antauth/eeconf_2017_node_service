@@ -9,9 +9,13 @@ var io = require('socket.io')(server, { origins: ['eeconf.local:*', 'localhost:4
 app.use(bodyParser.json()); // gets body of HTTP request, attaches to req.body
 
 app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "eeconf.local, conf-of-the-wild.herokuapp.com");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
+	var origin = 'eeconf.local';
+	if(req.ip != '127.0.0.1') {
+		origin = 'conf-of-the-wild.herokuapp.com'
+	}
+  	res.header("Access-Control-Allow-Origin", origin);
+  	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  	next();
 });
 
 app.get('/', function(req, res) {
